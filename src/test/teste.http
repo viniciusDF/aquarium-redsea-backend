@@ -1,0 +1,12 @@
+POST http://localhost:8080/api/status
+Content-Type: application/json
+
+{
+  "tempAgua": 26.5,
+  "tempLed": 45.2,
+  "branco": 120,
+  "azul": 80,
+  "royal": 80,
+  "fan": 100
+}
+
