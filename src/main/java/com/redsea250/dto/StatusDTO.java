@@ -1,74 +1,34 @@
 package com.redsea250.dto;
 
-import java.time.LocalDateTime;
-
 public class StatusDTO {
 
-    private Double tempAgua;
-    private Double tempLed;
-
+    private Double tAgua;
+    private Double tLed;
     private Integer branco;
     private Integer azul;
     private Integer royal;
-    private Integer fan;
+    private Integer fanPwm;
+    private Boolean modoAuto;
 
-    private LocalDateTime dataHora;
+    // Getters e Setters
+    public Double gettAgua() { return tAgua; }
+    public void settAgua(Double tAgua) { this.tAgua = tAgua; }
 
-    public Double getTempAgua() {
-        return tempAgua;
-    }
+    public Double gettLed() { return tLed; }
+    public void settLed(Double tLed) { this.tLed = tLed; }
 
-    public Double getTempLed() {
-        return tempLed;
-    }
+    public Integer getBranco() { return branco; }
+    public void setBranco(Integer branco) { this.branco = branco; }
 
-    public Integer getBranco() {
-        return branco;
-    }
+    public Integer getAzul() { return azul; }
+    public void setAzul(Integer azul) { this.azul = azul; }
 
-    public Integer getAzul() {
-        return azul;
-    }
+    public Integer getRoyal() { return royal; }
+    public void setRoyal(Integer royal) { this.royal = royal; }
 
-    public Integer getRoyal() {
-        return royal;
-    }
+    public Integer getFanPwm() { return fanPwm; }
+    public void setFanPwm(Integer fanPwm) { this.fanPwm = fanPwm; }
 
-    public Integer getFan() {
-        return fan;
-    }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setTempAgua(Double tempAgua) {
-        this.tempAgua = tempAgua;
-    }
-
-    public void setTempLed(Double tempLed) {
-        this.tempLed = tempLed;
-    }
-
-    public void setBranco(Integer branco) {
-        this.branco = branco;
-    }
-
-    public void setAzul(Integer azul) {
-        this.azul = azul;
-    }
-
-    public void setRoyal(Integer royal) {
-        this.royal = royal;
-    }
-
-    public void setFan(Integer fan) {
-        this.fan = fan;
-    }
-
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
-
+    public Boolean getModoAuto() { return modoAuto; }
+    public void setModoAuto(Boolean modoAuto) { this.modoAuto = modoAuto; }
 }

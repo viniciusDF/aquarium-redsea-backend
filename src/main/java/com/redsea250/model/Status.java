@@ -4,54 +4,56 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "tb_status_aquario")
 public class Status {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double tempAgua;
-    private Double tempLed;
+    private LocalDateTime timestamp;
+    private Double temperaturaAgua;
+    private Double temperaturaDissipador;
+    private Integer ledBranco;
+    private Integer ledAzul;
+    private Integer ledRoyal;
+    private Integer fanPwm;
+    private Boolean modoAutomatico;
 
-    private Integer branco;
-    private Integer azul;
-    private Integer royal;
-    private Integer fan;
+    // Construtor padrão exigido pelo JPA
+    public Status() {}
 
-    private LocalDateTime dataHora;
-
+    // Executa automaticamente antes de salvar no banco
     @PrePersist
-    public void prePersist() {
-        this.dataHora = LocalDateTime.now();
+    protected void onCreate() {
+        this.timestamp = LocalDateTime.now();
     }
 
     // Getters e Setters
-
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Double getTempAgua() { return tempAgua; }
+    public LocalDateTime getTimestamp() { return timestamp; }
+    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
 
-    public void setTempAgua(Double tempAgua) { this.tempAgua = tempAgua; }
+    public Double getTemperaturaAgua() { return temperaturaAgua; }
+    public void setTemperaturaAgua(Double temperaturaAgua) { this.temperaturaAgua = temperaturaAgua; }
 
-    public Double getTempLed() { return tempLed; }
+    public Double getTemperaturaDissipador() { return temperaturaDissipador; }
+    public void setTemperaturaDissipador(Double temperaturaDissipador) { this.temperaturaDissipador = temperaturaDissipador; }
 
-    public void setTempLed(Double tempLed) { this.tempLed = tempLed; }
+    public Integer getLedBranco() { return ledBranco; }
+    public void setLedBranco(Integer ledBranco) { this.ledBranco = ledBranco; }
 
-    public Integer getBranco() { return branco; }
+    public Integer getLedAzul() { return ledAzul; }
+    public void setLedAzul(Integer ledAzul) { this.ledAzul = ledAzul; }
 
-    public void setBranco(Integer branco) { this.branco = branco; }
+    public Integer getLedRoyal() { return ledRoyal; }
+    public void setLedRoyal(Integer ledRoyal) { this.ledRoyal = ledRoyal; }
 
-    public Integer getAzul() { return azul; }
+    public Integer getFanPwm() { return fanPwm; }
+    public void setFanPwm(Integer fanPwm) { this.fanPwm = fanPwm; }
 
-    public void setAzul(Integer azul) { this.azul = azul; }
-
-    public Integer getRoyal() { return royal; }
-
-    public void setRoyal(Integer royal) { this.royal = royal; }
-
-    public Integer getFan() { return fan; }
-
-    public void setFan(Integer fan) { this.fan = fan; }
-
-    public LocalDateTime getDataHora() { return dataHora; }
+    public Boolean getModoAutomatico() { return modoAutomatico; }
+    public void setModoAutomatico(Boolean modoAutomatico) { this.modoAutomatico = modoAutomatico; }
 }

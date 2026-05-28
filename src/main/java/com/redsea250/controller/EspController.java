@@ -1,32 +1,39 @@
 package com.redsea250.controller;
 
-import com.redsea250.dto.ConfigDTO;
 import com.redsea250.dto.StatusDTO;
-import com.redsea250.service.ConfigService;
-import com.redsea250.service.StatusService;
+import com.redsea250.model.Status;
+import com.redsea250.repository.StatusRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/esp")
+@CrossOrigin(origins = "*") // Permite conexões externas de qualquer IP
 public class EspController {
 
-    private final ConfigService configService;
-    private final StatusService statusService;
+    @Autowired
+    private StatusRepository statusRepository;
 
-    public EspController(ConfigService configService, StatusService statusService) {
-        this.configService = configService;
-        this.statusService = statusService;
-    }
+    @PostMapping("/telemetria")
+    public ResponseEntity<String> receberTelemetria(@RequestBody StatusDTO dto) {
+        try {
+            // Mapeia os dados resumidos do DTO para a entidade de Banco de Dados
+            Status novoStatus = new Status();
+            novoStatus.setTemperaturaAgua(dto.gettAgua());
+            novoStatus.setTemperaturaDissipador(dto.gettLed());
+            novoStatus.setLedBranco(dto.getBranco());
+            novoStatus.setLedAzul(dto.getAzul());
+            novoStatus.setLedRoyal(dto.getRoyal());
+            novoStatus.setFanPwm(dto.getFanPwm());
+            novoStatus.setModoAutomatico(dto.getModoAuto());
 
-    // ESP busca configuração da luminária
-    @GetMapping("/config")
-    public ConfigDTO getConfig() {
-        return configService.ultima();
-    }
+            // Salva no banco de dados PostgreSQL / MySQL
+            statusRepository.save(novoStatus);
 
-    // ESP envia status e temperaturas
-    @PostMapping("/status")
-    public StatusDTO receberStatus(@RequestBody StatusDTO status) {
-        return statusService.salvar(status);
+            return ResponseEntity.ok("Dados do aquario salvos com sucesso!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao processar dados: " + e.getMessage());
+        }
     }
 }

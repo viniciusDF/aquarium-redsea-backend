@@ -24,8 +24,17 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // Mantém as rotas atuais do seu front-end/autenticação
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/auth/register").permitAll()
+
+                        // Se o seu AuthController usar a rota com "/api/auth/...", mantenha esta também:
+                        .requestMatchers("/api/auth/**").permitAll()
+
+                        // Libera a ESP32 para enviar as leituras do aquário sem precisar de token JWT
+                        .requestMatchers("/api/esp/**").permitAll()
+
+                        // Qualquer outra requisição (como o Dashboard do front) vai exigir o Token
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
